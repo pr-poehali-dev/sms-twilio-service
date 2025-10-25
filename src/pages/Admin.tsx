@@ -17,6 +17,8 @@ const Admin = () => {
   const [purchasedNumber, setPurchasedNumber] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [testSmsLoading, setTestSmsLoading] = useState(false);
+  const [testSmsSuccess, setTestSmsSuccess] = useState('');
   const navigate = useNavigate();
 
   const handleLogin = () => {
@@ -98,6 +100,37 @@ const Admin = () => {
     } catch (err) {
       setError('Ошибка соединения с сервером');
       setLoading(false);
+    }
+  };
+
+  const handleSendTestSms = async () => {
+    setTestSmsLoading(true);
+    setTestSmsSuccess('');
+    setError('');
+
+    try {
+      const response = await fetch('https://functions.poehali.dev/7edd2833-ac9e-42d4-9490-83e6bf224a14', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          to_number: phoneNumber,
+          message: 'Тестовое сообщение от Hey, SMS! 🚀'
+        })
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        setError(data.error || 'Ошибка отправки SMS');
+        setTestSmsLoading(false);
+        return;
+      }
+
+      setTestSmsSuccess(`SMS отправлена на ${phoneNumber}! Проверьте страницу "Мой номер"`);
+      setTestSmsLoading(false);
+    } catch (err) {
+      setError('Ошибка соединения');
+      setTestSmsLoading(false);
     }
   };
 
@@ -273,6 +306,49 @@ const Admin = () => {
                     </>
                   )}
                 </Button>
+              </CardContent>
+            </Card>
+
+            <Card className="border-2">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Icon name="Send" size={24} className="text-primary" />
+                  Тестовая отправка SMS
+                </CardTitle>
+                <CardDescription>
+                  Отправьте тестовое SMS на номер {phoneNumber} для проверки webhook
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                {testSmsSuccess && (
+                  <div className="p-4 bg-green-50 border-2 border-green-500 rounded-lg">
+                    <p className="text-sm text-green-700 flex items-center gap-2">
+                      <Icon name="CheckCircle" size={16} />
+                      {testSmsSuccess}
+                    </p>
+                  </div>
+                )}
+                <Button
+                  onClick={handleSendTestSms}
+                  disabled={testSmsLoading || !phoneNumber.trim()}
+                  className="w-full h-12"
+                  variant="secondary"
+                >
+                  {testSmsLoading ? (
+                    <>
+                      <Icon name="Loader2" size={20} className="mr-2 animate-spin" />
+                      Отправка...
+                    </>
+                  ) : (
+                    <>
+                      <Icon name="Send" size={20} className="mr-2" />
+                      Отправить тестовую SMS
+                    </>
+                  )}
+                </Button>
+                <p className="text-xs text-muted-foreground">
+                  После отправки зайдите в "Мой номер" и введите промокод для просмотра входящих SMS
+                </p>
               </CardContent>
             </Card>
 
