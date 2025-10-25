@@ -297,8 +297,30 @@ const Admin = () => {
                       {generatedCode}
                     </p>
                   </div>
+                  <div className="flex gap-2">
+                    <Button
+                      onClick={() => {
+                        navigator.clipboard.writeText(generatedCode);
+                      }}
+                      variant="outline"
+                      className="flex-1"
+                    >
+                      <Icon name="Copy" size={16} className="mr-2" />
+                      Скопировать код
+                    </Button>
+                    <Button
+                      onClick={() => {
+                        localStorage.setItem('promocode', generatedCode);
+                        navigate('/my-numbers');
+                      }}
+                      className="flex-1"
+                    >
+                      <Icon name="Eye" size={16} className="mr-2" />
+                      Проверить
+                    </Button>
+                  </div>
                   <p className="text-sm text-muted-foreground text-center">
-                    Скопируйте этот код и отправьте пользователю
+                    Нажмите "Проверить" чтобы увидеть как это выглядит для пользователя
                   </p>
                 </CardContent>
               </Card>
