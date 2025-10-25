@@ -1,0 +1,17 @@
+{
+  "tests": [
+    {
+      "name": "Handle OPTIONS request",
+      "method": "OPTIONS",
+      "path": "/",
+      "expectedStatus": 200
+    },
+    {
+      "name": "Return TwiML response",
+      "method": "POST",
+      "path": "/",
+      "body": {},
+      "expectedStatus": 200
+    }
+  ]
+}
