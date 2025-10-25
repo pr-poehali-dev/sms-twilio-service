@@ -7,9 +7,9 @@ from urllib.parse import parse_qs
 
 def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
     '''
-    Business: Receive SMS webhook from Twilio and store message in database
-    Args: event with httpMethod POST and form data from Twilio
-    Returns: HTTP response with TwiML
+    Business: Receive SMS from Fanytel Android device (legacy endpoint, use fanytel-webhook instead)
+    Args: event with httpMethod POST and form data
+    Returns: HTTP response
     '''
     method: str = event.get('httpMethod', 'POST')
     
@@ -29,8 +29,8 @@ def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
     if method != 'POST':
         return {
             'statusCode': 405,
-            'headers': {'Content-Type': 'text/xml', 'Access-Control-Allow-Origin': '*'},
-            'body': '<?xml version="1.0" encoding="UTF-8"?><Response></Response>',
+            'headers': {'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'},
+            'body': json.dumps({'error': 'Method not allowed'}),
             'isBase64Encoded': False
         }
     
@@ -44,8 +44,8 @@ def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
     if not to_number or not message_body:
         return {
             'statusCode': 200,
-            'headers': {'Content-Type': 'text/xml', 'Access-Control-Allow-Origin': '*'},
-            'body': '<?xml version="1.0" encoding="UTF-8"?><Response></Response>',
+            'headers': {'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'},
+            'body': json.dumps({'success': True}),
             'isBase64Encoded': False
         }
     
@@ -72,7 +72,7 @@ def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
     
     return {
         'statusCode': 200,
-        'headers': {'Content-Type': 'text/xml', 'Access-Control-Allow-Origin': '*'},
-        'body': '<?xml version="1.0" encoding="UTF-8"?><Response></Response>',
+        'headers': {'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'},
+        'body': json.dumps({'success': True}),
         'isBase64Encoded': False
     }

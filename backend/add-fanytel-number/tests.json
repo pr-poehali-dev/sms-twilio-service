@@ -1,0 +1,31 @@
+{
+  "tests": [
+    {
+      "name": "Add new Fanytel number",
+      "method": "POST",
+      "body": {
+        "phone_number": "+447123456789",
+        "country_code": "GB",
+        "notes": "Test number from Fanytel"
+      },
+      "expectedStatus": 200,
+      "expectedBody": {
+        "success": true,
+        "phone_number": "string"
+      },
+      "bodyMatcher": "partial"
+    },
+    {
+      "name": "Missing phone number",
+      "method": "POST",
+      "body": {
+        "country_code": "GB"
+      },
+      "expectedStatus": 400,
+      "expectedBody": {
+        "error": "string"
+      },
+      "bodyMatcher": "partial"
+    }
+  ]
+}

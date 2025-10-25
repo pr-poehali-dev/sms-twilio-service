@@ -1,0 +1,30 @@
+{
+  "tests": [
+    {
+      "name": "SMS without active promocode",
+      "method": "POST",
+      "body": {
+        "phone_number": "+447123456789",
+        "from_number": "+15551234567",
+        "message": "Your verification code is 123456"
+      },
+      "expectedStatus": 404,
+      "expectedBody": {
+        "error": "string"
+      },
+      "bodyMatcher": "partial"
+    },
+    {
+      "name": "Missing required fields",
+      "method": "POST",
+      "body": {
+        "phone_number": "+447123456789"
+      },
+      "expectedStatus": 400,
+      "expectedBody": {
+        "error": "string"
+      },
+      "bodyMatcher": "partial"
+    }
+  ]
+}
