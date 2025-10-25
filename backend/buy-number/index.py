@@ -50,25 +50,36 @@ def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
     
     credentials = base64.b64encode(f'{account_sid}:{auth_token}'.encode()).decode()
     
-    search_url = f'https://api.twilio.com/2010-04-01/Accounts/{account_sid}/AvailablePhoneNumbers/{country_code}/Mobile.json?SmsEnabled=true&MmsEnabled=true'
+    phone_number = None
     
-    req = request.Request(search_url)
-    req.add_header('Authorization', f'Basic {credentials}')
+    endpoints = ['Local', 'Mobile', 'TollFree']
+    
+    for endpoint_type in endpoints:
+        search_url = f'https://api.twilio.com/2010-04-01/Accounts/{account_sid}/AvailablePhoneNumbers/{country_code}/{endpoint_type}.json?SmsEnabled=true&Limit=1'
+        
+        req = request.Request(search_url)
+        req.add_header('Authorization', f'Basic {credentials}')
+        
+        try:
+            with request.urlopen(req) as response:
+                data = json.loads(response.read().decode())
+                available_numbers = data.get('available_phone_numbers', [])
+                
+                if available_numbers:
+                    phone_number = available_numbers[0]['phone_number']
+                    break
+        except error.HTTPError:
+            continue
+    
+    if not phone_number:
+        return {
+            'statusCode': 404,
+            'headers': {'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'},
+            'body': json.dumps({'error': f'No available numbers for {country_code}. Try another country or add number manually.'}),
+            'isBase64Encoded': False
+        }
     
     try:
-        with request.urlopen(req) as response:
-            data = json.loads(response.read().decode())
-            available_numbers = data.get('available_phone_numbers', [])
-            
-            if not available_numbers:
-                return {
-                    'statusCode': 404,
-                    'headers': {'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'},
-                    'body': json.dumps({'error': f'No available numbers for {country_code}'}),
-                    'isBase64Encoded': False
-                }
-            
-            phone_number = available_numbers[0]['phone_number']
             
             buy_url = f'https://api.twilio.com/2010-04-01/Accounts/{account_sid}/IncomingPhoneNumbers.json'
             buy_data = f'PhoneNumber={phone_number}&SmsUrl=https://functions.poehali.dev/edb93555-2925-4dcb-87ef-579c4eaedb3b'
