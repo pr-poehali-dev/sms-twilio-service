@@ -1,10 +1,12 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import Icon from '@/components/ui/icon';
 
 const Index = () => {
   const [activeSection, setActiveSection] = useState('home');
+  const navigate = useNavigate();
 
   return (
     <div className="min-h-screen bg-white">
@@ -24,7 +26,7 @@ const Index = () => {
               <a href="#support" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">Поддержка</a>
             </div>
 
-            <Button className="hidden md:flex">Войти</Button>
+            <Button className="hidden md:flex" onClick={() => navigate('/activate')}>Активировать код</Button>
           </div>
         </div>
       </nav>
@@ -45,11 +47,11 @@ const Index = () => {
               </p>
             </div>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" className="text-lg px-8 py-6">
-                Начать работу
+              <Button size="lg" className="text-lg px-8 py-6" onClick={() => navigate('/activate')}>
+                Активировать промокод
                 <Icon name="ArrowRight" size={20} className="ml-2" />
               </Button>
-              <Button size="lg" variant="outline" className="text-lg px-8 py-6">
+              <Button size="lg" variant="outline" className="text-lg px-8 py-6" onClick={() => document.getElementById('pricing')?.scrollIntoView({ behavior: 'smooth' })}>
                 Узнать больше
               </Button>
             </div>
