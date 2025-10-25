@@ -10,7 +10,7 @@ const Admin = () => {
   const [password, setPassword] = useState('');
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [mode, setMode] = useState<'manual' | 'auto'>('auto');
-  const [phoneNumber, setPhoneNumber] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState('+19852608354');
   const [countryCode, setCountryCode] = useState('US');
   const [expiryDays, setExpiryDays] = useState('7');
   const [generatedCode, setGeneratedCode] = useState('');
