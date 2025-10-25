@@ -13,7 +13,7 @@ const Index = () => {
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
               <Icon name="MessageSquare" size={28} className="text-primary" />
-              <span className="text-2xl font-bold text-foreground">SMS Rental</span>
+              <span className="text-2xl font-bold text-foreground">Hey, SMS!</span>
             </div>
             
             <div className="hidden md:flex items-center gap-8">
@@ -33,11 +33,17 @@ const Index = () => {
         <div className="container mx-auto px-6">
           <div className="max-w-3xl mx-auto text-center">
             <h1 className="text-5xl md:text-6xl font-bold text-foreground mb-6 leading-tight">
-              Виртуальные номера для SMS
+              Прием СМС на виртуальные номера онлайн
             </h1>
             <p className="text-xl text-muted-foreground mb-10 leading-relaxed">
-              Получайте SMS с номеров из разных стран. Быстро, надежно и безопасно. Идеально для верификации и регистрации.
+              Сервис <span className="font-semibold text-foreground">Hey, SMS!</span> предоставляет персональные виртуальные номера для приема СМС. Каждый номер — только для вас. Все сообщения приходят исключительно вам на выбранный период.
             </p>
+            <div className="bg-primary/5 border border-primary/20 rounded-lg p-6 mb-10 max-w-2xl mx-auto">
+              <p className="text-base text-foreground">
+                <Icon name="ShieldCheck" size={20} className="inline text-primary mr-2" />
+                <span className="font-semibold">Эксклюзивное использование:</span> 1 номер = 1 пользователь. Никаких общих номеров — полная конфиденциальность гарантирована.
+              </p>
+            </div>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button size="lg" className="text-lg px-8 py-6">
                 Начать работу
@@ -59,9 +65,9 @@ const Index = () => {
                 <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
                   <Icon name="Zap" size={24} className="text-primary" />
                 </div>
-                <CardTitle className="text-xl">Мгновенная активация</CardTitle>
+                <CardTitle className="text-xl">Персональный номер</CardTitle>
                 <CardDescription className="text-base">
-                  Получите номер и начните получать SMS в течение минуты
+                  Номер выдается только вам — никто другой не получит доступ к вашим SMS
                 </CardDescription>
               </CardHeader>
             </Card>
@@ -71,9 +77,9 @@ const Index = () => {
                 <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
                   <Icon name="Globe" size={24} className="text-primary" />
                 </div>
-                <CardTitle className="text-xl">150+ стран</CardTitle>
+                <CardTitle className="text-xl">Мгновенная активация</CardTitle>
                 <CardDescription className="text-base">
-                  Номера из США, Европы, Азии и других регионов мира
+                  Получите номер за секунды и сразу начинайте принимать SMS для ваших сервисов
                 </CardDescription>
               </CardHeader>
             </Card>
@@ -83,9 +89,9 @@ const Index = () => {
                 <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
                   <Icon name="Shield" size={24} className="text-primary" />
                 </div>
-                <CardTitle className="text-xl">Безопасность</CardTitle>
+                <CardTitle className="text-xl">100% приватность</CardTitle>
                 <CardDescription className="text-base">
-                  Полная конфиденциальность и защита ваших данных
+                  Все SMS приходят только вам — защита данных и конфиденциальность на высшем уровне
                 </CardDescription>
               </CardHeader>
             </Card>
@@ -207,9 +213,9 @@ const Index = () => {
         <div className="container mx-auto px-6">
           <div className="max-w-2xl mx-auto text-center">
             <Icon name="Headphones" size={48} className="text-primary mx-auto mb-6" />
-            <h2 className="text-3xl font-bold text-foreground mb-4">Нужна помощь?</h2>
+            <h2 className="text-3xl font-bold text-foreground mb-4">Остались вопросы?</h2>
             <p className="text-lg text-muted-foreground mb-8">
-              Наша команда поддержки готова помочь вам 24/7
+              Наша команда поддержки всегда на связи — помогаем выбрать номер и решаем любые вопросы 24/7
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button size="lg" variant="outline">
@@ -230,9 +236,9 @@ const Index = () => {
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <div className="flex items-center gap-2">
               <Icon name="MessageSquare" size={24} className="text-primary" />
-              <span className="font-bold text-foreground">SMS Rental</span>
+              <span className="font-bold text-foreground">Hey, SMS!</span>
             </div>
-            <p className="text-sm text-muted-foreground">© 2024 SMS Rental. Все права защищены.</p>
+            <p className="text-sm text-muted-foreground">© 2024 Hey, SMS! Все права защищены.</p>
           </div>
         </div>
       </footer>
